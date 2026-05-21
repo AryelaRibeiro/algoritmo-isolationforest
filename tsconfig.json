@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "rewriteRelativeImportExtensions": true,
+    "allowImportingTsExtensions": true,
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority"
+  }
+}

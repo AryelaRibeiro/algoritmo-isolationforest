@@ -1,0 +1,24 @@
+{
+  "name": "isolationforest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "json": "^11.0.0"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.13",
+    "@types/node": "^25.6.0"
+  }
+}
