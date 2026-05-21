@@ -1,0 +1,56 @@
+```ts
+import grpc from "@grpc/grpc-js";
+import protoLoader from "@grpc/proto-loader";
+
+const PROTO_PATH = "./proto/sensor.proto";
+
+const packageDefinition = protoLoader.loadSync(PROTO_PATH);
+
+const proto: any = grpc.loadPackageDefinition(packageDefinition).sentinela;
+
+function enviarDados(call: any, callback: any) {
+  const {
+    temperatura,
+    pressao,
+    frequencia
+  } = call.request;
+
+  // SCORE TEMPORÁRIO
+  const media =
+    (temperatura + pressao + frequencia) / 3;
+
+  const score = Math.abs(media - 50) / 50;
+
+  const anomalia = score > 0.35;
+
+  callback(null, {
+    anomalia,
+    score,
+    acao: anomalia
+      ? "ANOMALIA DETECTADA"
+      : "NORMAL"
+  });
+}
+
+function statusSistema(_: any, callback: any) {
+  callback(null, {
+    authenticator_ok: true,
+    ml_engine_ok: true
+  });
+}
+
+const server = new grpc.Server();
+
+server.addService(proto.SensorService.service, {
+  EnviarDados: enviarDados,
+  StatusSistema: statusSistema
+});
+
+server.bindAsync(
+  "0.0.0.0:50052",
+  grpc.ServerCredentials.createInsecure(),
+  () => {
+    console.log("ML Engine rodando na porta 50052");
+  }
+);
+```
